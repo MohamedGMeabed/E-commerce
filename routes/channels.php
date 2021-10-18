@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -15,4 +16,12 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+Broadcast::channel('orders.{id}',function($user, $id){
+    if(auth('admin')->user()){
+        return true;
+    }
+    $order = Order::findOrFail($id);
+    return $user->id == $order->user_id;
+
 });

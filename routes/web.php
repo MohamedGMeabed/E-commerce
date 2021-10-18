@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,9 +71,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'], function (
 ######################### End  Slider  Route ########################
 
 
-Route::get('addToCart/{product}',[CartController::class,'addToCart']) -> name('cart.add');
-Route::post('/cart',[CartController::class,'store']) -> name('cart.store');
-
+Route::get('add-to-cart/{product}',[CartController::class,'addToCart']) -> name('cart.add');
+Route::get('clear-cart/',[CartController::class,'clearCart']) -> name('cart.clear');
+Route::post('checkout-add',[CheckoutController::class,'store']) -> name('checkout.store');
 
 
 

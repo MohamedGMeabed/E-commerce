@@ -1,4 +1,5 @@
 @extends('layouts.base')
+@toastr_css
 @section('content')
 <!--main area-->
 <main id="main" class="main-site">
@@ -8,55 +9,66 @@
         <div class="wrap-breadcrumb">
             <ul>
                 <li class="item-link"><a href="{{url('home')}}" class="link">home</a></li>
-                <li class="item-link"><span>login</span></li>
+                <li class="item-link"><span>checkout</span></li>
             </ul>
         </div>
         <div class=" main-content-area">
             <div class="wrap-address-billing">
                 <h3 class="box-title">Billing Address</h3>
-                <form action="#" method="get" name="frm-billing">
+                <form action="{{route('checkout.store')}}" method="post" name="frm-billing">
+                    @csrf
+                    <input type="hidden" value="{{Auth::user()->id}}">
                     <p class="row-in-form">
-                        <label for="fname">first name<span>*</span></label>
-                        <input id="fname" type="text" name="fname" value="" placeholder="Your name">
+                        <label for="shipping_first_name">first name<span>*</span></label>
+                        <input id="shipping_first_name" type="text" class="form-control @error('name') is-invalid @enderror" name="shipping_first_name" value="" placeholder="Your First Name">
+                        @error('shipping_first_name')
+                         <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
                     </p>
                     <p class="row-in-form">
-                        <label for="lname">last name<span>*</span></label>
-                        <input id="lname" type="text" name="lname" value="" placeholder="Your last name">
+                        <label for="shipping_last_name">last name<span>*</span></label>
+                        <input id="shipping_last_name" type="text" class="form-control @error('shipping_last_name') is-invalid @enderror" name="shipping_last_name" value="" placeholder="Your last name">
+                        @error('shipping_last_name')
+                        <small class="form-text text-danger">{{$message}}</small>
+                       @enderror
                     </p>
                     <p class="row-in-form">
-                        <label for="email">Email Addreess:</label>
-                        <input id="email" type="email" name="email" value="" placeholder="Type your email">
+                        <label for="shipping_email">Email Addreess:</label>
+                        <input id="shipping_email" type="email" class="form-control @error('shipping_email') is-invalid @enderror" name="shipping_email" value="" placeholder="Type your email">
+                        @error('shipping_email')
+                        <small class="form-text text-danger">{{$message}}</small>
+                       @enderror
                     </p>
                     <p class="row-in-form">
-                        <label for="phone">Phone number<span>*</span></label>
-                        <input id="phone" type="number" name="phone" value="" placeholder="10 digits format">
+                        <label for="shipping_phone">phone number<span>*</span></label>
+                        <input id="shipping_phone" type="number" class="form-control @error('shipping_phone') is-invalid @enderror" name="shipping_phone" value="" placeholder="10 digits format">
+                        @error('shipping_phone')
+                        <small class="form-text text-danger">{{$message}}</small>
+                       @enderror
                     </p>
                     <p class="row-in-form">
-                        <label for="add">Address:</label>
-                        <input id="add" type="text" name="add" value="" placeholder="Street at apartment number">
+                        <label for="shipping_address">Address:</label>
+                        <input id="shipping_address" type="text" class="form-control @error('shipping_address') is-invalid @enderror" name="shipping_address" value="" placeholder="Street at apartment number">
+                        @error('shipping_address')
+                        <small class="form-text text-danger">{{$message}}</small>
+                       @enderror
                     </p>
-                    <p class="row-in-form">
+                    {{-- <p class="row-in-form">
                         <label for="country">Country<span>*</span></label>
                         <input id="country" type="text" name="country" value="" placeholder="United States">
-                    </p>
-                    <p class="row-in-form">
+                    </p> --}}
+                    {{-- <p class="row-in-form">
                         <label for="zip-code">Postcode / ZIP:</label>
                         <input id="zip-code" type="number" name="zip-code" value="" placeholder="Your postal code">
-                    </p>
+                    </p> --}}
                     <p class="row-in-form">
-                        <label for="city">Town / City<span>*</span></label>
-                        <input id="city" type="text" name="city" value="" placeholder="City name">
+                        <label for="shipping_city">Town / City<span>*</span></label>
+                        <input id="shipping_city" type="text" class="form-control @error('shipping_city') is-invalid @enderror" name="shipping_city" value="" placeholder="City name">
+                        @error('shipping_city')
+                        <small class="form-text text-danger">{{$message}}</small>
+                       @enderror
                     </p>
-                    <p class="row-in-form fill-wife">
-                        <label class="checkbox-field">
-                            <input name="create-account" id="create-account" value="forever" type="checkbox">
-                            <span>Create an account?</span>
-                        </label>
-                        <label class="checkbox-field">
-                            <input name="different-add" id="different-add" value="forever" type="checkbox">
-                            <span>Ship to a different address?</span>
-                        </label>
-                    </p>
+                    <button type="submit" class="btn btn-success">Check Out </button>
                 </form>
             </div>
             <div class="summary summary-checkout">
@@ -253,5 +265,7 @@
 
 </main>
 <!--main area-->
-    
+@jquery
+@toastr_js
+@toastr_render
 @endsection

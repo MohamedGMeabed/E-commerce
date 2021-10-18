@@ -32,4 +32,13 @@ class CartController extends Controller
       }
       return view('cart.show', compact('cart'));
     }
+    public function clearCart() {
+
+        if (session()->has('cart')) {
+            session()->flush();
+        }
+        return redirect()->route('cart');
+      }
+
+    
 }

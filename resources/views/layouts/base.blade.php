@@ -129,7 +129,7 @@
 								</a>
 							</div>
 							<div class="wrap-icon-section minicart">
-								<a href="cart.php" class="link-direction">
+								<a href="{{url('cart')}}" class="link-direction">
 									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 									<div class="left-info">
 										<span class="index">{{session()->has('cart') ? session()->get('cart')->totalQty : '0'}} items</span>
@@ -178,9 +178,11 @@
 								<li class="menu-item">
 									<a href="{{url('cart')}}" class="link-term {{ (Request::segment(1)=='cart') ? 'active' : ''  }}">Cart</a>
 								</li>
+								@if(Auth::check() && session()->has('cart'))
 								<li class="menu-item">
 									<a href="{{url('checkout')}}" class="link-term {{ (Request::segment(1)=='checkout') ? 'active' : ''  }}">Checkout</a>
 								</li>
+								@endif
 								<li class="menu-item">
 									<a href="{{url('contact-us')}}" class="link-term {{ (Request::segment(1)=='contact-us') ? 'active' : ''  }}">Contact Us</a>
 								</li>																	
